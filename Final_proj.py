@@ -13,9 +13,7 @@ Is the PDSI output surface based then? What is the spatial extent?
 Can you provide a time period that covers a climate event and show time series of streamflow,
  a temporal average of temperature and precip conditions (spatial plots)? 
  Something to that extent to highlight how your dataset can characterize that time period?
- 
- 
- Guesss i need to create a power point
+
  
 @author: bam
 """
@@ -74,7 +72,7 @@ cba = plt.colorbar(ix2,  extend='neither', orientation='vertical',pad=0,shrink=1
 cba.set_ticks(np.arange(0,181,30),minor=False)
 cba.ax.tick_params(labelsize=8,direction='in',left='False',width=0.2,pad=0.3)
 cba.set_label('mm',fontsize=6)
-plt.title('CRU precip data')
+plt.title('Monthly Mean CRU Precip Data')
 plt.show()  
 
 ########### THIS PLOTTED THE CRU DATA ##########
@@ -107,7 +105,7 @@ cba.set_ticks(np.arange(0,181,30),minor=False)
 cba.ax.tick_params(labelsize=8,direction='in',left='False',width=0.2,pad=0.3)
 cba.set_label('mm',fontsize=6)
 plt.xlabel('Three streamflow gauges')
-plt.title('CRU data in MRB')
+plt.title('Monthly Mean CRU data in MRB')
 plt.show()  
 
 ##### I will plot the streamflow stations onto the areas
@@ -295,7 +293,7 @@ for ista,sta in  enumerate(in_station1_ds.station.values):
     var2=((ann_ind_wk1['mean_va']-ann_ind_wk1['mean_va'].mean('time'))/ann_ind_wk1['mean_va'].std('time'))
     var3=((sum_ind_wk1['mean_va']-sum_ind_wk1['mean_va'].mean('time'))/sum_ind_wk1['mean_va'].std('time'))
     
-    xlab=pd.date_range('1900-01-01',freq='1YS',periods=105)
+    xlab=pd.date_range('1940-01-01',freq='1YS',periods=60)
 
     ax1.plot(NADS_ind_wk1.time,var1,color='orange',label='PDSI',linewidth=1)
     ax1.plot(NADS_ind_wk1.time,var2,color='blue',label=f'Ann_ST cor={cor:.2f} pval={cor_p:.3f}',linewidth=1)
@@ -312,7 +310,7 @@ for ista,sta in  enumerate(in_station1_ds.station.values):
     ax1.axhline(y = 0, color = 'grey', linestyle = 'dashed',alpha=0.5,linewidth=0.5)
     ax1.tick_params(axis='y',which='major',direction = 'in',length =3 ,labelsize=6,left=True,right=True)
     ax1.tick_params(axis='x',which='major',direction = 'in',length =3 ,labelsize=6,top=True,bottom=True)
-
+#Picks the loction of the k
     if(ista==26):
         ax1.legend(fontsize=6,loc='upper right')
     else:
@@ -397,6 +395,7 @@ plt.show()
 
 
 
+### PLOTTING THE Precipitation time series 
 
 # Load precipitation data with xarray
 pr = xr.open_dataset('cru_ts4.07.1901.2022.pre.dat.nc').pre
@@ -416,11 +415,14 @@ trend_line = slope * time_numeric + intercept
 ax.plot(pr_time_series.time, trend_line, label='Trend Line', color='red')
 
 # Customize the plot
-ax.set_title('Time Series of Average Precipitation (1940-2000)')
+ax.set_title('CRU Mean Precipitation in the United States (1940-2000)')
 ax.set_xlabel('Time')
 ax.set_ylabel('Precipitation (mm)')
 ax.legend()
 plt.grid(True)
 plt.show()
+
+
+
 
 
